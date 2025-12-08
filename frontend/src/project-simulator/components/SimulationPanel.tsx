@@ -63,14 +63,14 @@ export const SimulationPanel = ({
   const dependentTasks = selectedTask ? tasks.filter(t => t.dependencies.includes(selectedTask.id)) : [];
 
   return (
-    <div className="bg-white border-l border-slate-200 h-full flex flex-col shadow-[-4px_0_24px_rgba(0,0,0,0.02)] z-20 relative">
-      <div className="p-6 border-b border-slate-100 bg-white">
-        <div className="flex items-center space-x-2 text-blue-600 mb-2">
+    <div className="bg-white border-l border-neutral-100 h-full flex flex-col z-20 relative font-['Plus_Jakarta_Sans']">
+      <div className="p-6 border-b border-neutral-100 bg-white">
+        <div className="flex items-center space-x-2 text-neutral-900 mb-2">
           <Activity size={18} />
-          <span className="font-bold tracking-wide text-xs uppercase">Impact Simulator</span>
+          <span className="font-semibold tracking-wide text-xs uppercase">Impact Simulator</span>
         </div>
-        <h2 className="text-xl font-bold text-slate-800">Delay Analysis</h2>
-        <p className="text-slate-500 text-sm mt-1 leading-relaxed">Simulate task delays to forecast timeline slippage and risks.</p>
+        <h2 className="text-xl font-bold text-neutral-900 font-['Outfit']">Delay Analysis</h2>
+        <p className="text-neutral-400 text-sm mt-1 leading-relaxed">Simulate task delays to forecast timeline slippage and risks.</p>
       </div>
 
       <div className="p-6 space-y-8 flex-1 overflow-y-auto">
@@ -78,12 +78,12 @@ export const SimulationPanel = ({
         {/* Scenario Manager */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-bold text-slate-700 uppercase flex items-center">
-              <Layers size={12} className="mr-1.5 text-slate-400" /> Scenarios
+            <label className="text-xs font-semibold text-neutral-700 uppercase flex items-center">
+              <Layers size={12} className="mr-1.5 text-neutral-400" /> Scenarios
             </label>
             <button
               onClick={addScenario}
-              className="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-bold hover:bg-blue-100 transition-colors flex items-center"
+              className="text-[10px] bg-neutral-100 text-neutral-700 px-2 py-1 rounded-md font-semibold hover:bg-neutral-200 transition-colors flex items-center"
             >
               <Plus size={10} className="mr-1" /> New
             </button>
@@ -94,30 +94,30 @@ export const SimulationPanel = ({
                 key={scenario.id}
                 className={`p-2 rounded-lg border transition-all cursor-pointer flex items-center justify-between group
                             ${scenario.id === simulationState.activeScenarioId
-                    ? 'bg-blue-50 border-blue-200 shadow-sm'
-                    : 'bg-white border-slate-100 hover:border-slate-200 hover:bg-slate-50'
+                    ? 'bg-neutral-900 border-neutral-900'
+                    : 'bg-white border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
                   }
                         `}
                 onClick={() => setActiveScenario(scenario.id)}
               >
                 <div className="flex items-center space-x-2 flex-1 min-w-0">
-                  <div className={`w-2 h-2 rounded-full shrink-0 ${scenario.id === simulationState.activeScenarioId ? 'bg-blue-500' : 'bg-slate-300'}`}></div>
+                  <div className={`w-2 h-2 rounded-full shrink-0 ${scenario.id === simulationState.activeScenarioId ? 'bg-green-400' : 'bg-neutral-300'}`}></div>
                   {scenario.id === simulationState.activeScenarioId ? (
                     <input
                       type="text"
                       value={scenario.name}
                       onChange={(e) => handleScenarioNameChange(e, scenario.id)}
-                      className="bg-transparent text-sm font-medium text-slate-800 focus:outline-none w-full"
+                      className="bg-transparent text-sm font-medium text-white focus:outline-none w-full"
                       onClick={(e) => e.stopPropagation()}
                     />
                   ) : (
-                    <span className="text-sm font-medium text-slate-600 truncate">{scenario.name}</span>
+                    <span className="text-sm font-medium text-neutral-600 truncate">{scenario.name}</span>
                   )}
                 </div>
                 {simulationState.scenarios.length > 1 && (
                   <button
                     onClick={(e) => { e.stopPropagation(); removeScenario(scenario.id); }}
-                    className="text-slate-400 hover:text-red-500 p-1 rounded opacity-0 group-hover:opacity-100 transition-all"
+                    className={`p-1 rounded opacity-0 group-hover:opacity-100 transition-all ${scenario.id === simulationState.activeScenarioId ? 'text-neutral-400 hover:text-white' : 'text-neutral-400 hover:text-red-500'}`}
                   >
                     <Trash2 size={12} />
                   </button>
@@ -127,17 +127,17 @@ export const SimulationPanel = ({
           </div>
         </div>
 
-        <div className="h-px bg-slate-100"></div>
+        <div className="h-px bg-neutral-100"></div>
 
         {/* Task Selector */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase mb-2 flex items-center justify-between">
+          <label className="block text-xs font-semibold text-neutral-700 uppercase mb-2 flex items-center justify-between">
             Target Task
-            <Info size={12} className="text-slate-400" />
+            <Info size={12} className="text-neutral-400" />
           </label>
           <div className="relative group">
             <select
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none appearance-none transition-all cursor-pointer font-medium hover:border-slate-300"
+              className="w-full p-3 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-700 focus:ring-2 focus:ring-neutral-900 focus:border-neutral-900 outline-none appearance-none transition-all cursor-pointer font-medium hover:border-neutral-300"
               value={selectedTaskId}
               onChange={(e) => setSelectedTaskId(e.target.value)}
             >
@@ -146,20 +146,20 @@ export const SimulationPanel = ({
                 <option key={t.id} value={t.id}>{t.title}</option>
               ))}
             </select>
-            <div className="absolute right-3 top-3.5 pointer-events-none text-slate-400 group-hover:text-slate-600 transition-colors">
+            <div className="absolute right-3 top-3.5 pointer-events-none text-neutral-400 group-hover:text-neutral-600 transition-colors">
               <Sliders size={14} />
             </div>
           </div>
         </div>
 
         {/* Delay Slider */}
-        <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+        <div className="bg-neutral-50 p-5 rounded-xl border border-neutral-100">
           <div className="flex justify-between items-center mb-5">
-            <label className="text-xs font-bold text-slate-700 uppercase">
+            <label className="text-xs font-semibold text-neutral-700 uppercase">
               Delay Duration
             </label>
-            <span className="text-blue-600 font-bold text-lg">
-              {delayDays} <span className="text-sm font-normal text-slate-500">days</span>
+            <span className="text-neutral-900 font-bold text-lg">
+              {delayDays} <span className="text-sm font-normal text-neutral-500">days</span>
             </span>
           </div>
           <input
@@ -168,9 +168,9 @@ export const SimulationPanel = ({
             max="14"
             value={delayDays}
             onChange={(e) => setDelayDays(parseInt(e.target.value))}
-            className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-500 transition-all"
+            className="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-neutral-900 hover:accent-neutral-700 transition-all"
           />
-          <div className="flex justify-between text-[10px] text-slate-400 mt-3 font-medium uppercase tracking-wide">
+          <div className="flex justify-between text-[10px] text-neutral-400 mt-3 font-medium uppercase tracking-wide">
             <span>1 Day</span>
             <span>2 Weeks</span>
           </div>
@@ -180,9 +180,8 @@ export const SimulationPanel = ({
         <button
           onClick={handleAddDelay}
           disabled={!selectedTaskId}
-          className={`w-full py-2 rounded-lg font-bold text-xs uppercase tracking-wide transition-all
-                ${!selectedTaskId ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-100 text-blue-600 hover:bg-blue-200'}
-            `}
+          className={`w-full py-2 rounded-lg font-semibold text-xs uppercase tracking-wide transition-all
+                ${!selectedTaskId ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
         >
           Add Delay
         </button>
@@ -190,18 +189,18 @@ export const SimulationPanel = ({
         {/* Active Delays List */}
         {activeScenario.delays.length > 0 && (
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-700 uppercase">Active Delays</label>
+            <label className="text-xs font-semibold text-neutral-700 uppercase">Active Delays</label>
             <div className="space-y-2">
               {activeScenario.delays.map((delay, idx) => {
                 const task = tasks.find(t => t.id === delay.taskId);
                 return (
-                  <div key={idx} className="flex items-center justify-between bg-white border border-slate-200 p-2 rounded-md shadow-sm">
+                  <div key={idx} className="flex items-center justify-between bg-white border border-neutral-200 p-2 rounded-lg">
                     <div className="text-sm">
-                      <span className="font-medium text-slate-700">{task?.title}</span>
-                      <span className="text-slate-400 mx-1">•</span>
+                      <span className="font-medium text-neutral-700">{task?.title}</span>
+                      <span className="text-neutral-400 mx-1">•</span>
                       <span className="text-red-500 font-bold">+{delay.days}d</span>
                     </div>
-                    <button onClick={() => removeDelay(idx)} className="text-slate-400 hover:text-red-500 transition-colors">
+                    <button onClick={() => removeDelay(idx)} className="text-neutral-400 hover:text-red-500 transition-colors">
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -215,7 +214,7 @@ export const SimulationPanel = ({
         <div className="grid grid-cols-2 gap-3 pt-2">
           <button
             onClick={onReset}
-            className="flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 font-semibold text-sm transition-all"
+            className="flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-neutral-600 bg-white border border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300 font-semibold text-sm transition-all"
           >
             <RefreshCw size={16} />
             <span>Reset</span>
@@ -223,9 +222,8 @@ export const SimulationPanel = ({
           <button
             onClick={onRunSimulation}
             disabled={activeScenario.delays.length === 0 || activeScenario.isAnalyzing}
-            className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-white font-semibold text-sm transition-all shadow-md
-              ${(activeScenario.delays.length === 0 || activeScenario.isAnalyzing) ? 'bg-slate-300 cursor-not-allowed shadow-none' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg shadow-blue-200'}
-            `}
+            className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-white font-semibold text-sm transition-all
+              ${(activeScenario.delays.length === 0 || activeScenario.isAnalyzing) ? 'bg-neutral-300 cursor-not-allowed' : 'bg-neutral-900 hover:bg-neutral-800'}`}
           >
             {activeScenario.isAnalyzing ? <Wand2 className="animate-spin" size={16} /> : <Play size={16} className="fill-current" />}
             <span>{simulationState.active ? 'Update' : 'Apply'}</span>
@@ -236,7 +234,7 @@ export const SimulationPanel = ({
         {simulationState.active && (
           <button
             onClick={onViewTimeline}
-            className="w-full mt-3 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 font-semibold text-sm transition-all"
+            className="w-full mt-3 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg text-neutral-700 bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 font-semibold text-sm transition-all"
           >
             <Clock size={16} />
             <span>View Comparison Timeline</span>
@@ -249,15 +247,15 @@ export const SimulationPanel = ({
 
             {/* Cost & Time Estimation */}
             <div className="space-y-3">
-              <h3 className="text-xs font-bold text-slate-700 uppercase">Project Impact</h3>
+              <h3 className="text-xs font-semibold text-neutral-700 uppercase">Project Impact</h3>
 
               {/* Time */}
-              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 flex justify-between items-center">
-                <div className="flex items-center text-slate-500 text-xs">
+              <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-100 flex justify-between items-center">
+                <div className="flex items-center text-neutral-500 text-xs">
                   <Clock size={14} className="mr-2" /> Duration
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-slate-800">{activeScenario.totalDuration} days</div>
+                  <div className="text-sm font-bold text-neutral-800">{activeScenario.totalDuration} days</div>
                   {activeScenario.totalDuration !== originalDuration && (
                     <div className="text-[10px] text-red-500 font-medium">
                       +{(activeScenario.totalDuration || 0) - originalDuration} days
@@ -270,7 +268,7 @@ export const SimulationPanel = ({
             {/* Resource Constraints */}
             {activeScenario.overbookedUsers && activeScenario.overbookedUsers.length > 0 && (
               <div className="space-y-3">
-                <h3 className="text-xs font-bold text-red-600 uppercase flex items-center">
+                <h3 className="text-xs font-semibold text-red-600 uppercase flex items-center">
                   <AlertTriangle size={12} className="mr-1" /> Resource Alerts
                 </h3>
                 <div className="bg-red-50 border border-red-100 rounded-lg p-3">
@@ -286,7 +284,7 @@ export const SimulationPanel = ({
 
                   {activeScenario.reassignmentSuggestions && activeScenario.reassignmentSuggestions.length > 0 && (
                     <div className="mt-2 pt-2 border-t border-red-100">
-                      <p className="text-[10px] text-red-600 font-bold uppercase mb-1">Suggestion</p>
+                      <p className="text-[10px] text-red-600 font-semibold uppercase mb-1">Suggestion</p>
                       <div className="text-xs text-red-800">
                         Reassign <span className="font-semibold">Task {activeScenario.reassignmentSuggestions[0].taskId}</span> to <span className="font-semibold">{activeScenario.reassignmentSuggestions[0].suggestedUser.name}</span>
                       </div>
@@ -299,27 +297,27 @@ export const SimulationPanel = ({
             {/* Dependency Tree */}
             {selectedTask && (
               <div className="space-y-3">
-                <h3 className="text-xs font-bold text-slate-700 uppercase flex items-center">
+                <h3 className="text-xs font-semibold text-neutral-700 uppercase flex items-center">
                   <GitMerge size={12} className="mr-1" /> Dependency Chain
                 </h3>
-                <div className="bg-slate-50 border border-slate-100 rounded-lg p-4 overflow-hidden">
+                <div className="bg-neutral-50 border border-neutral-100 rounded-lg p-4 overflow-hidden">
                   <div className="flex items-center space-x-2">
-                    <div className="bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded text-xs font-medium shadow-sm truncate max-w-[100px]">
+                    <div className="bg-white border border-neutral-900 text-neutral-900 px-2 py-1 rounded text-xs font-medium truncate max-w-[100px]">
                       {selectedTask.title}
                     </div>
                     {dependentTasks.length > 0 ? (
                       <>
-                        <ArrowRight size={12} className="text-slate-400" />
+                        <ArrowRight size={12} className="text-neutral-400" />
                         <div className="flex flex-col space-y-2">
                           {dependentTasks.map(dt => (
-                            <div key={dt.id} className="bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded text-xs shadow-sm truncate max-w-[100px]">
+                            <div key={dt.id} className="bg-white border border-neutral-200 text-neutral-600 px-2 py-1 rounded text-xs truncate max-w-[100px]">
                               {dt.title}
                             </div>
                           ))}
                         </div>
                       </>
                     ) : (
-                      <span className="text-[10px] text-slate-400 italic ml-2">No direct dependents</span>
+                      <span className="text-[10px] text-neutral-400 italic ml-2">No direct dependents</span>
                     )}
                   </div>
                 </div>
@@ -332,21 +330,21 @@ export const SimulationPanel = ({
         {/* Impact Analysis Result */}
         {(simulationState.active || activeScenario.impactSummary) && (
           <div className="mt-6 animate-fade-in-up">
-            <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
+            <div className="bg-neutral-900 p-5 rounded-xl">
               <div className="flex items-center space-x-2 mb-3">
-                <div className="bg-blue-100 p-1.5 rounded-md">
-                  <Wand2 size={14} className="text-blue-600" />
+                <div className="bg-white/10 p-1.5 rounded-md">
+                  <Wand2 size={14} className="text-white" />
                 </div>
-                <h3 className="text-blue-900 font-bold text-sm">AI Impact Analysis</h3>
+                <h3 className="text-white font-bold text-sm">AI Impact Analysis</h3>
               </div>
               {activeScenario.isAnalyzing ? (
                 <div className="space-y-3 pt-1">
-                  <div className="h-2 bg-blue-100/50 rounded w-3/4 animate-pulse"></div>
-                  <div className="h-2 bg-blue-100/50 rounded w-full animate-pulse"></div>
-                  <div className="h-2 bg-blue-100/50 rounded w-5/6 animate-pulse"></div>
+                  <div className="h-2 bg-white/10 rounded w-3/4 animate-pulse"></div>
+                  <div className="h-2 bg-white/10 rounded w-full animate-pulse"></div>
+                  <div className="h-2 bg-white/10 rounded w-5/6 animate-pulse"></div>
                 </div>
               ) : (
-                <p className="text-slate-700 text-xs leading-relaxed font-medium">
+                <p className="text-neutral-400 text-xs leading-relaxed font-medium">
                   {activeScenario.impactSummary || "Select a task and click apply to see AI insights."}
                 </p>
               )}

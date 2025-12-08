@@ -253,31 +253,31 @@ const ProjectSimulator: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-50 overflow-hidden text-slate-800 font-sans selection:bg-blue-100">
+        <div className="flex flex-col h-full bg-white overflow-hidden text-neutral-800 font-['Plus_Jakarta_Sans']">
             {/* Header Area */}
-            <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-30 shadow-sm">
+            <header className="h-16 bg-white border-b border-neutral-100 flex items-center justify-between px-6 shrink-0 z-30">
                 <div className="flex items-center space-x-4">
-                    <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-200/50">
+                    <div className="w-9 h-9 bg-neutral-900 rounded-lg flex items-center justify-center text-white">
                         <Layout size={20} />
                     </div>
                     <div>
-                        <h1 className="text-lg font-bold text-slate-800 leading-none">Product Launch Q4</h1>
+                        <h1 className="text-lg font-semibold text-neutral-900 leading-none">Product Launch Q4</h1>
                         <div className="flex items-center space-x-2 mt-1">
-                            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Project Board</span>
+                            <span className="text-[10px] uppercase font-semibold text-neutral-400 tracking-widest">Project Board</span>
                             {simulationState.active && (
-                                <span className="bg-amber-100 text-amber-700 text-[10px] px-2 py-0.5 rounded-full font-bold border border-amber-200 animate-pulse">
-                                    SCENARIO MODE ACTIVE
+                                <span className="bg-amber-50 text-amber-600 text-[10px] px-2 py-0.5 rounded-full font-semibold border border-amber-100 animate-pulse">
+                                    SCENARIO MODE
                                 </span>
                             )}
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                     {/* Timeline Button */}
                     <button
                         onClick={() => setShowTimeline(true)}
-                        className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors"
+                        className="flex items-center space-x-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-3 py-2 rounded-lg font-medium text-sm transition-colors"
                     >
                         <Calendar size={16} />
                         <span>Timeline</span>
@@ -285,14 +285,14 @@ const ProjectSimulator: React.FC = () => {
 
                     {/* Mock search bar */}
                     <div className="relative hidden md:block">
-                        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="text" placeholder="Search tasks..." className="pl-9 pr-4 py-1.5 rounded-full bg-slate-100 border border-transparent focus:bg-white focus:border-blue-300 focus:outline-none text-sm transition-all w-64 text-slate-600" />
+                        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                        <input type="text" placeholder="Search tasks..." className="pl-9 pr-4 py-2 rounded-lg bg-white border border-neutral-200 focus:border-neutral-400 focus:outline-none text-sm transition-all w-64 text-neutral-600 placeholder:text-neutral-400" />
                     </div>
-                    <div className="relative p-2 rounded-full hover:bg-slate-100 cursor-pointer text-slate-500 transition-colors">
+                    <button className="p-2 rounded-lg text-neutral-400 hover:text-neutral-600 hover:bg-neutral-50 transition-colors relative">
                         <Bell size={20} />
-                        <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                    </div>
-                    <img src="https://picsum.photos/seed/user/32/32" alt="Profile" className="w-8 h-8 rounded-full border border-slate-200 cursor-pointer hover:ring-2 hover:ring-blue-100 transition-all" />
+                        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                    <img src="https://picsum.photos/seed/user/32/32" alt="Profile" className="w-8 h-8 rounded-full border border-neutral-200 cursor-pointer hover:ring-2 hover:ring-neutral-200 transition-all" />
                 </div>
             </header>
 
@@ -300,24 +300,24 @@ const ProjectSimulator: React.FC = () => {
             <main className="flex flex-1 overflow-hidden">
 
                 {/* Left Side: Kanban */}
-                <div className="flex-1 flex flex-col min-w-0 bg-slate-50/50">
+                <div className="flex-1 flex flex-col min-w-0 bg-neutral-50/50">
                     {/* Kanban Header */}
-                    <div className="h-14 border-b border-slate-200 flex items-center px-6 bg-white">
-                        <div className="flex space-x-1 text-sm font-medium text-slate-500">
-                            <button className="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-md transition-colors">Kanban</button>
+                    <div className="h-14 border-b border-neutral-100 flex items-center px-6 bg-white">
+                        <div className="flex space-x-1 text-sm font-medium text-neutral-500">
+                            <button className="text-neutral-900 bg-neutral-100 px-3 py-1.5 rounded-md transition-colors">Kanban</button>
                         </div>
                         <div className="ml-auto flex items-center space-x-3">
                             <div className="flex -space-x-2">
                                 {/* Tiny avatars for people looking at the board */}
                                 {[1, 2, 3].map(i => (
-                                    <div key={i} className="w-6 h-6 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-[10px] text-slate-500 font-bold">
+                                    <div key={i} className="w-6 h-6 rounded-full bg-neutral-200 border-2 border-white flex items-center justify-center text-[10px] text-neutral-500 font-bold">
                                         {String.fromCharCode(64 + i)}
                                     </div>
                                 ))}
                             </div>
-                            <div className="h-4 w-px bg-slate-300 mx-2"></div>
-                            <button className="text-xs font-medium text-slate-500 hover:text-blue-600 flex items-center bg-white border border-slate-200 px-3 py-1.5 rounded-full hover:shadow-sm transition-all">
-                                <MoreHorizontal size={14} className="mr-1" /> Filter
+                            <div className="h-4 w-px bg-neutral-200 mx-2"></div>
+                            <button className="text-xs font-medium text-neutral-500 hover:text-neutral-700 flex items-center bg-white border border-neutral-200 px-3 py-1.5 rounded-lg hover:bg-neutral-50 transition-all">
+                                <MoreHorizontal size={14} className="mr-1" />Filter
                             </button>
                         </div>
                     </div>
@@ -334,12 +334,12 @@ const ProjectSimulator: React.FC = () => {
                                 >
                                     <div className="flex items-center justify-between mb-3 px-1">
                                         <div className="flex items-center space-x-2">
-                                            <h3 className="font-semibold text-slate-700">{status}</h3>
-                                            <span className="bg-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+                                            <h3 className="font-semibold text-neutral-700">{status}</h3>
+                                            <span className="bg-neutral-200 text-neutral-600 text-[10px] px-1.5 py-0.5 rounded-full font-bold">
                                                 {getTasksByStatus(status, simulationState.active).length}
                                             </span>
                                         </div>
-                                        <div className="text-slate-400 hover:text-slate-600 cursor-pointer">
+                                        <div className="text-neutral-400 hover:text-neutral-600 cursor-pointer">
                                             <MoreHorizontal size={16} />
                                         </div>
                                     </div>
@@ -358,8 +358,8 @@ const ProjectSimulator: React.FC = () => {
                                                 />
                                             ))
                                         }
-                                        <button className="w-full py-2.5 border border-dashed border-slate-300 rounded-lg flex items-center justify-center text-slate-500 text-sm hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all mt-1 group">
-                                            <Plus size={16} className="mr-1 group-hover:scale-110 transition-transform" /> Add Item
+                                        <button className="w-full py-2.5 border border-dashed border-neutral-300 rounded-lg flex items-center justify-center text-neutral-500 text-sm hover:border-neutral-400 hover:text-neutral-700 hover:bg-neutral-50 transition-all mt-1 group">
+                                            <Plus size={16} className="mr-1 group-hover:scale-110 transition-transform" />Add Item
                                         </button>
                                     </div>
                                 </div>

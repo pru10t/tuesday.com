@@ -69,27 +69,27 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
         for (let i = 0; i < totalDays; i++) {
             const date = new Date(minDate + i * 24 * 60 * 60 * 1000);
             days.push(
-                <div key={i} className="flex-1 border-r border-slate-200 text-[10px] text-slate-400 flex flex-col items-center justify-center h-full min-w-[40px]">
+                <div key={i} className="flex-1 border-r border-neutral-200 text-[10px] text-neutral-400 flex flex-col items-center justify-center h-full min-w-[40px]">
                     <span className="font-bold">{date.getDate()}</span>
                     <span className="text-[8px] uppercase">{date.toLocaleDateString('en-US', { weekday: 'narrow' })}</span>
                 </div>
             );
         }
-        return <div className="flex h-8 border-b border-slate-200 bg-slate-50">{days}</div>;
+        return <div className="flex h-8 border-b border-neutral-200 bg-neutral-50">{days}</div>;
     };
 
     const renderGantt = (tasks: Task[], criticalPath: Set<string>, isSimulated: boolean) => (
-        <div className="relative h-full min-w-[600px] border-r border-slate-200 last:border-r-0 bg-slate-50/30 flex flex-col">
+        <div className="relative h-full min-w-[600px] border-r border-neutral-200 last:border-r-0 bg-neutral-50/30 flex flex-col">
             {/* Header */}
-            <div className={`sticky top-0 z-20 px-4 py-3 border-b border-slate-200 backdrop-blur-sm shrink-0 ${isSimulated ? 'bg-blue-50/80' : 'bg-white/80'}`}>
-                <h3 className={`font-bold text-sm flex items-center ${isSimulated ? 'text-blue-700' : 'text-slate-700'}`}>
-                    <div className={`w-2 h-2 rounded-full mr-2 ${isSimulated ? 'bg-blue-500' : 'bg-slate-400'}`}></div>
+            <div className={`sticky top-0 z-20 px-4 py-3 border-b border-neutral-200 backdrop-blur-sm shrink-0 ${isSimulated ? 'bg-neutral-900/95' : 'bg-white/95'}`}>
+                <h3 className={`font-semibold text-sm flex items-center ${isSimulated ? 'text-white' : 'text-neutral-700'}`}>
+                    <div className={`w-2 h-2 rounded-full mr-2 ${isSimulated ? 'bg-green-400' : 'bg-neutral-400'}`}></div>
                     {isSimulated ? scenarioName : 'Original Schedule'}
                 </h3>
             </div>
 
             {/* Date Header */}
-            <div className="sticky top-[45px] z-10 bg-white shadow-sm">
+            <div className="sticky top-[45px] z-10 bg-white">
                 {renderHeader()}
             </div>
 
@@ -97,7 +97,7 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
                 {/* Grid Background */}
                 <div className="absolute inset-0 pointer-events-none flex">
                     {[...Array(Math.ceil(totalDays))].map((_, i) => (
-                        <div key={i} className="flex-1 border-r border-slate-100 h-full min-w-[40px]"></div>
+                        <div key={i} className="flex-1 border-r border-neutral-100 h-full min-w-[40px]"></div>
                     ))}
                 </div>
 
@@ -108,7 +108,7 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
                         const isDelayed = isSimulated && delayedTaskIds.has(task.id);
                         const isHovered = hoveredTask === task.id;
 
-                        let barColor = isSimulated ? 'bg-blue-500' : 'bg-slate-400';
+                        let barColor = isSimulated ? 'bg-neutral-700' : 'bg-neutral-400';
                         if (isCritical) barColor = 'bg-orange-400 ring-1 ring-orange-500';
                         if (isDelayed) barColor = 'bg-red-400 ring-1 ring-red-500';
 
@@ -121,7 +121,7 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
                             >
                                 {/* Task Bar */}
                                 <div
-                                    className={`absolute h-6 rounded-md shadow-sm transition-all duration-300 cursor-pointer flex items-center px-2
+                                    className={`absolute h-6 rounded-md transition-all duration-300 cursor-pointer flex items-center px-2
                                     ${barColor}
                                     ${isHovered ? 'scale-[1.02] shadow-md z-10' : 'opacity-90'}
                                 `}
@@ -137,9 +137,9 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
 
                                 {/* Tooltip on Hover */}
                                 {isHovered && (
-                                    <div className="absolute top-8 left-0 z-30 bg-slate-800 text-white text-xs rounded-lg p-3 shadow-xl w-48 pointer-events-none animate-in fade-in zoom-in-95 duration-150">
-                                        <div className="font-bold mb-1 text-slate-100">{task.title}</div>
-                                        <div className="space-y-1 text-slate-300">
+                                    <div className="absolute top-8 left-0 z-30 bg-neutral-900 text-white text-xs rounded-lg p-3 shadow-xl w-48 pointer-events-none animate-in fade-in zoom-in-95 duration-150">
+                                        <div className="font-bold mb-1 text-neutral-100">{task.title}</div>
+                                        <div className="space-y-1 text-neutral-300">
                                             <div className="flex items-center">
                                                 <Calendar size={10} className="mr-1.5" />
                                                 {new Date(task.startDate).toLocaleDateString()} ({task.duration}d)
@@ -169,26 +169,26 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
         </div>
     );
     return (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col animate-in slide-in-from-bottom-10 duration-300">
+        <div className="fixed inset-0 z-50 bg-white flex flex-col animate-in slide-in-from-bottom-10 duration-300 font-['Plus_Jakarta_Sans']">
             {/* Modal Header */}
-            <div className="h-16 border-b border-slate-200 flex items-center justify-between px-6 bg-white shadow-sm shrink-0">
+            <div className="h-16 border-b border-neutral-100 flex items-center justify-between px-6 bg-white shrink-0">
                 <div className="flex items-center space-x-4">
-                    <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                    <div className="bg-neutral-100 p-2 rounded-lg text-neutral-600">
                         <Calendar size={20} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-bold text-slate-800">Timeline Comparison</h2>
-                        <p className="text-xs text-slate-500 font-medium">Side-by-side impact analysis</p>
+                        <h2 className="text-lg font-semibold text-neutral-900">Timeline Comparison</h2>
+                        <p className="text-xs text-neutral-400 font-medium">Side-by-side impact analysis</p>
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2 text-xs font-medium bg-slate-100 px-3 py-1.5 rounded-full text-slate-600">
+                    <div className="flex items-center space-x-2 text-xs font-medium bg-neutral-100 px-3 py-1.5 rounded-full text-neutral-600">
                         <span className="w-2 h-2 rounded-full bg-orange-400"></span>
                         <span>Critical Path</span>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-slate-100 rounded-full text-slate-500 transition-colors"
+                        className="p-2 hover:bg-neutral-100 rounded-full text-neutral-500 transition-colors"
                     >
                         <X size={24} />
                     </button>
@@ -197,7 +197,7 @@ export const FullWidthGantt: React.FC<FullWidthGanttProps> = ({ originalTasks, s
 
             {/* Main Content - Split View */}
             <div className="flex-1 overflow-hidden flex">
-                <div className="flex-1 overflow-auto flex divide-x divide-slate-200">
+                <div className="flex-1 overflow-auto flex divide-x divide-neutral-200">
                     {/* Left: Original */}
                     <div className="flex-1 min-w-[50%]">
                         {renderGantt(originalTasks, originalCriticalPath, false)}
