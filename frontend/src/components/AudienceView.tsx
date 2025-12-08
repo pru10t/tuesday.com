@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { Customer, CustomerPrediction } from '../types';
 import { TwinCard } from './TwinCard';
+import { PersonaChatModal } from './PersonaChatModal';
 import { 
   Search, ChevronDown, Users, Filter, 
   Grid3X3, List, CheckSquare, Square
@@ -43,6 +44,15 @@ export const AudienceView: React.FC<AudienceViewProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+  const [chatCustomer, setChatCustomer] = useState<Customer | null>(null);
+
+  const handleOpenChat = (customer: Customer) => {
+    setChatCustomer(customer);
+  };
+
+  const handleCloseChat = () => {
+    setChatCustomer(null);
+  };
 
   // Filter customers
   const filteredCustomers = useMemo(() => {
@@ -237,6 +247,7 @@ export const AudienceView: React.FC<AudienceViewProps> = ({
                 customer={customer}
                 isSelected={selectedIds.has(customer.user_id)}
                 onToggle={onToggleCustomer}
+                onChat={handleOpenChat}
                 prediction={getPrediction(customer.user_id)}
                 showPrediction={showPredictions}
               />
@@ -346,6 +357,15 @@ export const AudienceView: React.FC<AudienceViewProps> = ({
             </button>
           </div>
         </div>
+      )}
+
+      {/* Persona Chat Modal */}
+      {chatCustomer && (
+        <PersonaChatModal
+          customer={chatCustomer}
+          isOpen={true}
+          onClose={handleCloseChat}
+        />
       )}
     </div>
   );

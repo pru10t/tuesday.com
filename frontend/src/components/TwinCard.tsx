@@ -1,10 +1,12 @@
 import React from 'react';
+import { MessageCircle } from 'lucide-react';
 import type { Customer } from '../types';
 
 interface TwinCardProps {
   customer: Customer;
   isSelected: boolean;
   onToggle: (id: number) => void;
+  onChat: (customer: Customer) => void;
   prediction?: {
     will_open: boolean;
     will_click: boolean;
@@ -23,14 +25,28 @@ const segmentLabels: Record<string, string> = {
   'Bargain Hunter': 'Value',
 };
 
+const segmentEmojis: Record<string, string> = {
+  'Tech Enthusiast': '💻',
+  'Fashionista': '👗',
+  'Home Decor': '🏠',
+  'Bargain Hunter': '🏷️',
+};
+
 export const TwinCard: React.FC<TwinCardProps> = ({ 
   customer, 
   isSelected, 
-  onToggle, 
+  onToggle,
+  onChat,
   prediction,
   showPrediction 
 }) => {
   const segmentLabel = segmentLabels[customer.interest_segment] || customer.interest_segment;
+  const segmentEmoji = segmentEmojis[customer.interest_segment] || '👤';
+
+  const handleChatClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onChat(customer);
+  };
   
   return (
     <div 
@@ -55,9 +71,21 @@ export const TwinCard: React.FC<TwinCardProps> = ({
         )}
       </div>
 
+      {/* Chat Button - appears on hover */}
+      <button
+        onClick={handleChatClick}
+        className="absolute top-4 left-4 w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-neutral-700 transition-all transform scale-90 group-hover:scale-100"
+        title={`Chat with ${customer.name}`}
+      >
+        <MessageCircle size={14} />
+      </button>
+
       {/* Customer Name & Segment */}
       <div className="mb-4">
-        <p className="text-sm font-semibold text-neutral-900 truncate">{customer.name}</p>
+        <div className="flex items-center gap-2">
+          <span className="text-base">{segmentEmoji}</span>
+          <p className="text-sm font-semibold text-neutral-900 truncate">{customer.name}</p>
+        </div>
         <p className="text-xs text-neutral-400 mt-0.5">{segmentLabel} · {customer.income_bracket}</p>
       </div>
 
@@ -107,3 +135,4 @@ export const TwinCard: React.FC<TwinCardProps> = ({
     </div>
   );
 };
+
