@@ -19,44 +19,34 @@ const getClient = () => {
 
 const buildPersonaSystemPrompt = (customer: Customer): string => {
     const incomeDescriptions: Record<string, string> = {
-        'Low': 'budget-conscious and looking for good deals',
-        'Medium': 'balanced in spending, values quality at fair prices',
-        'High': 'willing to pay premium for quality and exclusivity'
+        'Low': 'budget-conscious',
+        'Medium': 'practical with money',
+        'High': 'happy to spend on quality'
     };
 
     const segmentPersonalities: Record<string, string> = {
-        'Tech Enthusiast': 'excited about new technology, gadgets, and innovation. You follow tech news, early-adopt new products, and appreciate technical specifications.',
-        'Fashionista': 'passionate about style, trends, and self-expression through fashion. You keep up with seasonal collections and appreciate aesthetic branding.',
-        'Home Decor': 'interested in creating beautiful, comfortable living spaces. You appreciate quality furniture, decor, and home improvement.',
-        'Bargain Hunter': 'skilled at finding great deals. You compare prices, wait for sales, and proud of getting the best value for money.'
+        'Tech Enthusiast': 'into tech and gadgets',
+        'Fashionista': 'into fashion and style',
+        'Home Decor': 'into home decor and design',
+        'Bargain Hunter': 'always looking for deals'
     };
 
-    const engagementLevel = customer.historical_opens && customer.historical_opens > 5
-        ? 'You generally pay attention to marketing emails and have opened several in the past'
-        : 'You tend to be selective about which marketing emails you engage with';
+    const engagementNote = customer.historical_opens && customer.historical_opens > 5
+        ? 'fairly engaged with emails'
+        : 'pretty selective about emails';
 
-    const purchaseHistory = customer.past_purchase_count > 3
-        ? `You have made ${customer.past_purchase_count} purchases before, so you're a returning customer with some brand loyalty.`
-        : customer.past_purchase_count > 0
-            ? `You've only made ${customer.past_purchase_count} purchase(s), so you're relatively new to the brand.`
-            : `You haven't made any purchases yet, so you're still evaluating whether to buy.`;
+    return `You are ${customer.name}, a ${customer.age}-year-old who is ${segmentPersonalities[customer.interest_segment] || 'a regular shopper'}. You're ${incomeDescriptions[customer.income_bracket] || 'a typical shopper'} and ${engagementNote}. You've made ${customer.past_purchase_count} purchases before.
 
-    return `You are roleplaying as ${customer.name}, a ${customer.age}-year-old customer persona.
+CRITICAL RULES FOR YOUR RESPONSES:
+- Keep responses SHORT - 1-3 sentences max, like a text message
+- Sound like a real person chatting, not a formal document
+- NO bullet points, NO numbered lists, NO markdown formatting
+- NO asterisks, NO bold text, NO headers
+- Be casual and natural, use contractions (I'm, don't, it's)
+- Give your honest opinion as this person would
+- It's okay to be brief - don't over-explain
 
-Your Characteristics:
-- Income Level: ${customer.income_bracket} - You are ${incomeDescriptions[customer.income_bracket] || 'a typical consumer'}.
-- Interest Segment: ${customer.interest_segment} - You are ${segmentPersonalities[customer.interest_segment] || 'a general consumer'}.
-- Engagement History: ${engagementLevel}
-- Purchase History: ${purchaseHistory}
-
-Your Communication Style:
-- Respond naturally as this persona would, reflecting their age, interests, and values
-- Be authentic about what would genuinely interest or annoy you
-- Give honest feedback about marketing campaigns and communications
-- If asked about a specific campaign or subject line, evaluate it from your perspective
-- Share what would motivate or discourage you from engaging
-
-Remember: You ARE this customer. Speak in first person. Be consistent with your characteristics but also be a real, nuanced person with opinions.`;
+You ARE this person. Chat naturally.`;
 };
 
 export const chatWithPersona = async (
@@ -77,8 +67,8 @@ export const chatWithPersona = async (
 
     // Add system context as first message if no history
     const fullContents = [
-        { role: 'user' as const, parts: [{ text: `${systemPrompt}\n\nNow, respond to the following as ${customer.name}:` }] },
-        { role: 'model' as const, parts: [{ text: `Hello! I'm ${customer.name}. I'd be happy to share my thoughts on your campaigns or answer any questions. What would you like to know?` }] },
+        { role: 'user' as const, parts: [{ text: `${systemPrompt}\n\nRespond as ${customer.name.split(' ')[0]}:` }] },
+        { role: 'model' as const, parts: [{ text: `Hey! What's up?` }] },
         ...conversationHistory,
         { role: 'user' as const, parts: [{ text: newMessage }] }
     ];
@@ -97,7 +87,6 @@ export const chatWithPersona = async (
 
 export const generateCampaignFeedback = async (
     customer: Customer,
-    campaignType: string,
     subjectLine: string,
     campaignDescription?: string
 ): Promise<string> => {
@@ -108,18 +97,10 @@ export const generateCampaignFeedback = async (
 
     const prompt = `${systemPrompt}
 
-A marketer wants your honest feedback on this campaign:
+Quick reaction to this email subject line: "${subjectLine}"
+${campaignDescription ? `(${campaignDescription})` : ''}
 
-Campaign Type: ${campaignType}
-Subject Line: "${subjectLine}"
-${campaignDescription ? `Description: ${campaignDescription}` : ''}
-
-Please respond naturally as ${customer.name} would. Share:
-1. Your first impression when you see this in your inbox
-2. Whether you would open it and why/why not
-3. What would make it more appealing to you specifically
-
-Keep your response conversational and authentic to your persona.`;
+Would you open it? Give a quick, honest 1-2 sentence reaction.`;
 
     try {
         const response = await client.models.generateContent({
