@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, sele
     <aside className="w-72 bg-white border-r border-neutral-100 flex flex-col h-screen sticky top-0 font-['Plus_Jakarta_Sans']">
       {/* Logo */}
       <div className="p-8 pb-12">
-        <h1 className="font-['Jersey_25'] text-4xl text-black tracking-wide">Tomorrow</h1>
+        <h1 className="font-['Jersey_25'] text-4xl text-black tracking-wide">tuesday.com</h1>
         <p className="text-[10px] text-neutral-400 font-medium tracking-widest uppercase mt-2">
           Predict. Optimize. Send.
         </p>

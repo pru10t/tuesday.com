@@ -51,7 +51,7 @@ export const LandingPage: React.FC = () => {
       <nav className="fixed w-full z-50 top-0 left-0 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-screen-xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 font-['Outfit'] font-bold text-2xl tracking-tighter">
-            Tomorrow.
+            tuesday.com
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-500">
             <a href="#capabilities" className="hover:text-black transition-colors">Capabilities</a>
@@ -262,7 +262,7 @@ export const LandingPage: React.FC = () => {
       <footer className="py-12 px-6 border-t border-neutral-100">
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="font-['Outfit'] font-bold text-xl tracking-tighter">
-            Tomorrow.
+            tuesday.com
           </div>
           <div className="flex gap-8 text-sm text-neutral-500">
             <a href="#" className="hover:text-black transition-colors">Privacy</a>
@@ -270,7 +270,7 @@ export const LandingPage: React.FC = () => {
             <a href="#" className="hover:text-black transition-colors">Twitter</a>
           </div>
           <div className="text-sm text-neutral-400">
-            © 2025 Tomorrow Inc.
+            © 2025 tuesday.com
           </div>
         </div>
       </footer>

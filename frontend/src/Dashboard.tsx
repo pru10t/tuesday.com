@@ -140,7 +140,7 @@ function Dashboard() {
           <div className="w-8 h-8 bg-neutral-900 rounded-lg flex items-center justify-center text-white group-hover:bg-neutral-700 transition-colors">
             <ArrowLeft size={16} />
           </div>
-          <span className="font-['Outfit'] font-bold text-xl tracking-tight">Tomorrow.</span>
+          <span className="font-['Outfit'] font-bold text-xl tracking-tight">tuesday.com</span>
         </Link>
 
         {/* Main Tab Switcher */}

@@ -115,7 +115,7 @@ function App() {
       <div className="min-h-screen bg-white flex items-center justify-center font-['Plus_Jakarta_Sans']">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-          <p className="text-neutral-500 text-sm font-medium tracking-wide">Loading Tomorrow...</p>
+          <p className="text-neutral-500 text-sm font-medium tracking-wide">Loading tuesday.com...</p>
         </div>
       </div>
     );
