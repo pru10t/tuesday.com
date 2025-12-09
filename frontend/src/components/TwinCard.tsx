@@ -71,15 +71,6 @@ export const TwinCard: React.FC<TwinCardProps> = ({
         )}
       </div>
 
-      {/* Chat Button - appears on hover */}
-      <button
-        onClick={handleChatClick}
-        className="absolute top-4 left-4 w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-neutral-700 transition-all transform scale-90 group-hover:scale-100"
-        title={`Chat with ${customer.name}`}
-      >
-        <MessageCircle size={14} />
-      </button>
-
       {/* Customer Name & Segment */}
       <div className="mb-4">
         <div className="flex items-center gap-2">
@@ -106,6 +97,16 @@ export const TwinCard: React.FC<TwinCardProps> = ({
           <p className="text-[10px] text-neutral-400 uppercase tracking-wide">Orders</p>
         </div>
       </div>
+
+      {/* Chat Button - appears on hover, centered */}
+      <button
+        onClick={handleChatClick}
+        className="w-full mt-4 py-2 rounded-lg bg-neutral-900 text-white text-xs font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 hover:bg-neutral-700 transition-all"
+        title={`Chat with ${customer.name}`}
+      >
+        <MessageCircle size={14} />
+        Chat with {customer.name.split(' ')[0]}
+      </button>
 
       {/* Prediction overlay */}
       {showPrediction && prediction && (
